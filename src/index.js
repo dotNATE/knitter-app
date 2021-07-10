@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { resolvers } from "./resolvers";
 import { typeDefs } from "./typeDefs";
 import { Globals } from "./globals";
@@ -17,6 +17,7 @@ const server = async () => {
     server.applyMiddleware({app});
 
     await mongoose.connect(Globals.mongoURI, {useNewUrlParser: true}); 
+
 
     routes(app);
 

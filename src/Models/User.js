@@ -4,7 +4,5 @@ export const User = mongoose.model("users", {
     lName: String,
     email: String,
     password: String,
-    emailVerifiedAt: String,
-    createdAt: String,
-    updatedAt: String
+    stitches: Array
 });
