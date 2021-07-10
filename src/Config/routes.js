@@ -1,7 +1,7 @@
-import { getAllDogs } from "../Contollers/DogController";
+import { getAllUsers } from "../Contollers/UserController";
 
 export const routes = (app) => {
 
-    app.get('/', getAllDogs);
-
+    app.get('/', getAllUsers);
+    
 }

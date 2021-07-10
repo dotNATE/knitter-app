@@ -3,17 +3,19 @@ import { gql } from "apollo-server-express";
 export const typeDefs = gql`
 
 type Query {
-    helloWorld: String!
-    dogs: [Dog!]!
+    users: [User!]!
 }
 
 type Mutation {
-    createDog(name: String!): Dog!
+    createNewUser( fName: String!, lName: String!, email: String!, password: String! ): User!
 }
 
-type Dog {
+type User {
     id: ID!
-    name: String!
+    fName: String!
+    lName: String!
+    email: String!
+    password: String!
 }
 
 `;

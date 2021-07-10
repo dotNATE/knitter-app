@@ -1,15 +1,14 @@
-import { Dog } from "./models/Dog";
+import { User } from "./Models/User";
 
 export const resolvers = {
     Query: {
-        helloWorld: () => "hello world",
-        dogs: () => Dog.find()
+        users: () => User.find()
     },
     Mutation: {
-        createDog: async(_, { name }) => {
-            const puppy = new Dog({ name });
-            await puppy.save();
-            return puppy;
+        createNewUser: async(_, { fName, lName, email, password }) => {
+            const user = new User({ fName, lName, email, password });
+            await user.save();
+            return user;
         }
     }
 };
