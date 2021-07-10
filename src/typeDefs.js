@@ -5,6 +5,7 @@ export const typeDefs = gql`
 type Query {
     user(id: String!): User!
     users: [User!]!
+    stitch(id: String!): Stitch!
     stitches: [Stitch!]!
 }
 

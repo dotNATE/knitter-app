@@ -6,6 +6,7 @@ export const resolvers = {
     Query: {
         user: (_, { id }) => User.findOne(ObjectID(id)),
         users: () => User.find(),
+        stitch: (_, { id }) => Stitch.findOne(ObjectID(id)),
         stitches: () => Stitch.find()
     },
     Mutation: {
