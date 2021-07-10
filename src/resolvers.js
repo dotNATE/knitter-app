@@ -1,8 +1,10 @@
+import { Stitch } from "./Models/Stitch";
 import { User } from "./Models/User";
 
 export const resolvers = {
     Query: {
-        users: () => User.find()
+        users: () => User.find(),
+        stitches: () => Stitch.find()
     },
     Mutation: {
         createNewUser: async(_, { fName, lName, email, password }) => {

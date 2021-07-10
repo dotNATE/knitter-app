@@ -4,6 +4,7 @@ export const typeDefs = gql`
 
 type Query {
     users: [User!]!
+    stitches: [Stitch!]!
 }
 
 type Mutation {
@@ -16,6 +17,11 @@ type User {
     lName: String!
     email: String!
     password: String!
+}
+
+type Stitch {
+    id: ID!
+    content: String!
 }
 
 `;
