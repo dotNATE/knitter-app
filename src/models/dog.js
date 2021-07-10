@@ -1,2 +1,2 @@
 import mongoose from "mongoose";
-export const Dog = mongoose.model("Dog", { name: String });
+export const Dog = mongoose.model("dogs", { name: String });
