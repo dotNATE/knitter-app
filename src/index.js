@@ -13,7 +13,11 @@ const server = async () => {
 
     server.applyMiddleware({app});
 
-    app.get('/', (req, res) => res.send('hello'));
+    try {
+        await mongoose.connect("mongodb+srv://admin:6K9e9JcxhPMsuLrez3@knitter.u4roj.mongodb.net/main_data?retryWrites=true&w=majority", {useNewUrlParser: true});
+    } catch (error) {
+        console.error(error);
+    }
 
     app.listen({port: 4200}, () => {
         console.log('Server Running');
