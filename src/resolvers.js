@@ -3,26 +3,26 @@ import { Stitch } from "./Models/Stitch";
 import { User } from "./Models/User";
 
 export const resolvers = {
-    Query: {
-        user: (_, { id }) => User.findOne(ObjectID(id)),
-        users: () => User.find(),
-        stitch: (_, { id }) => Stitch.findOne(ObjectID(id)),
-        stitches: () => Stitch.find()
+  Query: {
+    user: (_, { id }) => User.findOne(ObjectID(id)),
+    users: () => User.find(),
+    stitch: (_, { id }) => Stitch.findOne(ObjectID(id)),
+    stitches: () => Stitch.find(),
+  },
+  Mutation: {
+    createNewUser: async (_, { fName, lName, email, password }) => {
+      const user = new User({ fName, lName, email, password });
+      await user.save();
+      return user;
     },
-    Mutation: {
-        createNewUser: async (_, { fName, lName, email, password }) => {
-            const user = new User({ fName, lName, email, password });
-            await user.save();
-            return user;
-        },
-        createNewStitch: async (_, { content, postedByUserId }) => {
-            const stitch = new Stitch({ content, postedByUserId });
-            await stitch.save();
-            const user = User.findOne({ id: postedByUserId });
-            console.log(user)
-            user.stitches.push({ id: postedByUserId });
-            user.save();
-            return stitch
-        }
-    }
+    createNewStitch: async (_, { content, postedByUserId }) => {
+      const stitch = new Stitch({ content, postedByUserId });
+      await stitch.save();
+      const user = User.findOne({ id: postedByUserId });
+      console.log(user);
+      user.stitches.push({ id: postedByUserId });
+      user.save();
+      return stitch;
+    },
+  },
 };
