@@ -18,10 +18,6 @@ export const resolvers = {
     createNewStitch: async (_, { content, postedByUserId }) => {
       const stitch = new Stitch({ content, postedByUserId });
       await stitch.save();
-      const user = User.findOne({ id: postedByUserId });
-      console.log(user);
-      user.stitches.push({ id: postedByUserId });
-      user.save();
       return stitch;
     },
   },
