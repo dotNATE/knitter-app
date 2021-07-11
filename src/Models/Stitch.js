@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-export const Stitch = mongoose.model("stitches", {
-    content: String,
-    postedByUserId: String
+
+const StitchSchema = new mongoose.Schema({
+  content: String,
+  postedByUserId: String,
 });
+
+export const Stitch = mongoose.model("stitches", StitchSchema);
