@@ -2,10 +2,10 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   type Query {
-    user(email: String!): User!
-    users: [User!]!
-    stitch(id: String!): Stitch!
-    stitches: [Stitch!]!
+    userByEmail(email: String!): User!
+    usersAll: [User!]!
+    stitchById(id: ID!): Stitch!
+    stitchesAll: [Stitch!]!
   }
 
   type Mutation {
@@ -20,18 +20,18 @@ export const typeDefs = gql`
   }
 
   type User {
-    id: ID!
+    _id: ID!
     fName: String!
     lName: String!
     email: String!
     password: String!
-    stitches: [Stitch!]!
+    stitches: [Stitch!]
   }
 
   type Stitch {
-    id: ID!
+    _id: ID!
     content: String!
-    postedByUserId: String!
+    postedByUserId: User!
   }
 
   type AuthData {

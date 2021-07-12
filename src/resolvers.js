@@ -1,27 +1,32 @@
 import jsonwebtoken from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { ObjectID } from "mongodb";
 import { Globals } from "./globals";
 import { Stitch } from "./Models/Stitch";
 import { User } from "./Models/User";
 
 export const resolvers = {
   Query: {
-    user: (_, { email }) => User.findOne({ email: email }),
-    users: () => User.find(),
-    stitch: (_, { id }) => Stitch.findById(ObjectID(id)),
-    stitches: (_, __, { req }) => {
-      if (!req.isAuth) {
-        throw new Error("Unauthorised");
-      }
-      return Stitch.find();
-    },
+    userByEmail: async (_, { email }) =>
+      await User.findOne({ email: email }).populate("stitches"),
+    usersAll: () => User.find().populate("stitches"),
+    stitchById: (_, { id }) => Stitch.findById(id).populate("postedByUserId"),
+    stitchesAll: (_, __, { req }) => Stitch.find().populate("postedByUserId"),
   },
   Mutation: {
     createNewUser: async (_, { fName, lName, email, password }) => {
-      const user = new User({ fName, lName, email, password });
-      await user.save();
-      return user;
+      const checkNewEmail = await User.findOne({ email: email });
+      if (checkNewEmail) {
+        throw new Error("Account already exists for that email");
+      }
+      return bcrypt
+        .hash(password, Globals.saltRounds)
+        .then((hash) => {
+          const user = new User({ fName, lName, email, password: hash });
+          return user.save();
+        })
+        .then((result) => {
+          return { ...result._doc };
+        });
     },
     login: async (_, { email, password }) => {
       const user = await User.findOne({ email: email });
@@ -47,8 +52,24 @@ export const resolvers = {
       }
       const postedByUserId = req.userId;
       const stitch = new Stitch({ content, postedByUserId });
-      await stitch.save();
-      return stitch;
+      let createdStitch;
+      return stitch
+        .save()
+        .then((result) => {
+          createdStitch = { ...result._doc };
+          return User.findById(postedByUserId);
+        })
+        .then((user) => {
+          if (!user) {
+            throw new Error("User does not exist");
+          }
+          user.stitches.push(stitch);
+          user.save();
+          return user;
+        })
+        .then((result) => {
+          return createdStitch;
+        });
     },
   },
 };

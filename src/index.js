@@ -4,7 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import { resolvers } from "./resolvers";
 import { typeDefs } from "./typeDefs";
 import { Globals } from "./globals";
-const isAuth = require("./Middleware/isAuth");
+import { isAuth } from "./Middleware/isAuth";
 
 const server = async () => {
   const app = express();

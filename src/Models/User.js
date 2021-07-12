@@ -1,26 +1,30 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import { Globals } from "../globals";
 
 const UserSchema = new mongoose.Schema({
-  fName: String,
-  lName: String,
-  email: String,
-  password: String,
-  stitches: Array,
-});
-
-UserSchema.pre("save", function (next) {
-  const user = this;
-  if (this.isModified("password") || this.isNew) {
-    bcrypt.hash(user.password, Globals.saltRounds, (err, hash) => {
-      if (err) {
-        return next(err);
-      }
-      user.password = hash;
-      next();
-    });
-  }
+  fName: {
+    type: String,
+    required: true,
+  },
+  lName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  stitches: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "stitches",
+    },
+  ],
 });
 
 export const User = mongoose.model("users", UserSchema);

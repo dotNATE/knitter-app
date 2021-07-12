@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const { Globals } = require("../globals");
+import jsonwebtoken from "jsonwebtoken";
+import { Globals } from "../globals";
 
-module.exports = (req, res, next) => {
+export const isAuth = (req, res, next) => {
   const authHeader = req.get("authorization");
   if (!authHeader) {
     req.isAuth = false;
@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
   }
   let decodedToken;
   try {
-    decodedToken = jwt.verify(token, Globals.JWT_SECRET);
+    decodedToken = jsonwebtoken.verify(token, Globals.JWT_SECRET);
   } catch (err) {
     req.isAuth = false;
     return next();
