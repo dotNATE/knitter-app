@@ -15,8 +15,8 @@ export const typeDefs = gql`
       email: String!
       password: String!
     ): User!
-    login(email: String!, password: String!): String!
-    createNewStitch(content: String!, postedByUserId: String!): Stitch!
+    login(email: String!, password: String!): AuthData!
+    createNewStitch(content: String!): Stitch!
   }
 
   type User {
@@ -32,5 +32,10 @@ export const typeDefs = gql`
     id: ID!
     content: String!
     postedByUserId: String!
+  }
+
+  type AuthData {
+    userId: ID!
+    token: String!
   }
 `;

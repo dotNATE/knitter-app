@@ -10,7 +10,12 @@ export const resolvers = {
     user: (_, { email }) => User.findOne({ email: email }),
     users: () => User.find(),
     stitch: (_, { id }) => Stitch.findById(ObjectID(id)),
-    stitches: () => Stitch.find(),
+    stitches: (_, __, { req }) => {
+      if (!req.isAuth) {
+        throw new Error("Unauthorised");
+      }
+      return Stitch.find();
+    },
   },
   Mutation: {
     createNewUser: async (_, { fName, lName, email, password }) => {
@@ -27,18 +32,20 @@ export const resolvers = {
       if (!valid) {
         throw new Error("Invalid password");
       }
-      return jsonwebtoken.sign(
+      const token = jsonwebtoken.sign(
         {
           id: user.id,
           email: user.email,
         },
-        Globals.JWT_SECRET,
-        {
-          expiresIn: "1y",
-        }
+        Globals.JWT_SECRET
       );
+      return { userId: user.id, token: token };
     },
-    createNewStitch: async (_, { content, postedByUserId }) => {
+    createNewStitch: async (_, { content }, { req }) => {
+      if (!req.isAuth) {
+        throw new Error("Unauthorised");
+      }
+      const postedByUserId = req.userId;
       const stitch = new Stitch({ content, postedByUserId });
       await stitch.save();
       return stitch;
