@@ -36,11 +36,39 @@ const getManyStitchesById = (stitchIDs) => {
 
 export const resolvers = {
   Query: {
-    userByEmail: async (_, { email }) =>
-      await User.findOne({ email: email }).populate("stitches"),
-    usersAll: () => User.find().populate("stitches"),
-    stitchById: (_, { id }) => Stitch.findById(id).populate("postedByUserId"),
-    stitchesAll: (_, __, { req }) =>
+    userByEmail: (_, { email }) =>
+      User.findOne({ email: email }).then((user) => {
+        if (!user) {
+          throw new Error("No user with that email");
+        }
+        return {
+          ...user._doc,
+          _id: user.id,
+          stitches: getManyStitchesById.bind(this, user._doc.stitches),
+        };
+      }),
+    usersAll: () =>
+      User.find().then((users) => {
+        return users.map((user) => {
+          return {
+            ...user._doc,
+            _id: user.id,
+            stitches: getManyStitchesById.bind(this, user._doc.stitches),
+          };
+        });
+      }),
+    stitchById: (_, { id }) =>
+      Stitch.findById(id).then((stitch) => {
+        return {
+          ...stitch._doc,
+          _id: stitch.id,
+          postedByUserId: getSingleUserById.bind(
+            this,
+            stitch._doc.postedByUserId
+          ),
+        };
+      }),
+    stitchesAll: () =>
       Stitch.find().then((stitches) => {
         return stitches.map((stitch) => {
           return {
