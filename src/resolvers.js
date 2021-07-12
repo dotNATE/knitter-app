@@ -4,13 +4,55 @@ import { Globals } from "./globals";
 import { Stitch } from "./Models/Stitch";
 import { User } from "./Models/User";
 
+const getSingleUserById = (userID) => {
+  return User.findById(userID)
+    .then((user) => {
+      return {
+        ...user._doc,
+        _id: user.id,
+        stitches: getManyStitchesById.bind(this, user._doc.stitches),
+      };
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+const getManyStitchesById = (stitchIDs) => {
+  return Stitch.find({ _id: { $in: stitchIDs } })
+    .then((stitches) => {
+      return stitches.map((stitch) => {
+        return {
+          ...stitch._doc,
+          _id: stitch.id,
+          postedByUserId: getSingleUserById.bind(this, stitch.postedByUserId),
+        };
+      });
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const resolvers = {
   Query: {
     userByEmail: async (_, { email }) =>
       await User.findOne({ email: email }).populate("stitches"),
     usersAll: () => User.find().populate("stitches"),
     stitchById: (_, { id }) => Stitch.findById(id).populate("postedByUserId"),
-    stitchesAll: (_, __, { req }) => Stitch.find().populate("postedByUserId"),
+    stitchesAll: (_, __, { req }) =>
+      Stitch.find().then((stitches) => {
+        return stitches.map((stitch) => {
+          return {
+            ...stitch._doc,
+            _id: stitch.id,
+            postedByUserId: getSingleUserById.bind(
+              this,
+              stitch._doc.postedByUserId
+            ),
+          };
+        });
+      }),
   },
   Mutation: {
     createNewUser: async (_, { fName, lName, email, password }) => {
@@ -56,7 +98,14 @@ export const resolvers = {
       return stitch
         .save()
         .then((result) => {
-          createdStitch = { ...result._doc };
+          createdStitch = {
+            ...result._doc,
+            id: result._doc.id,
+            postedByUserId: getSingleUserById.bind(
+              this,
+              result._doc.postedByUserId
+            ),
+          };
           return User.findById(postedByUserId);
         })
         .then((user) => {
