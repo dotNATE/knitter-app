@@ -1,21 +1,17 @@
 import React from "react";
 import {
   Route,
-  Link,
   BrowserRouter as Router,
   Switch,
   Redirect,
 } from "react-router-dom";
 import AuthPage from "../../../Pages/Auth";
+import NavBar from "../NavBar";
 
 const Routing = () => {
   return (
     <Router>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-      </ul>
+      <NavBar />
       <Switch>
         <Redirect exact from="/" to="/auth" />
         <Route exact path="/auth" component={AuthPage} />
