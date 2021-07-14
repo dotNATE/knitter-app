@@ -4,12 +4,13 @@ import Header2 from "./../Components/Atoms/Headers/Header2";
 import AuthButtons from "../Components/Molecules/AuthButtons";
 import SignUpForm from "../Components/Organisms/Forms/SignUpForm";
 import Modal from "../Components/Utilities/Modal";
+import LogInForm from "../Components/Organisms/Forms/LogInForm";
 
 const AuthPage = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showLogInForm, setShowLogInForm] = useState(false);
 
-  const showSignUpModal = (e) => {
+  const showSignUpModal = () => {
     setShowSignUpForm(true);
   };
 
@@ -17,7 +18,7 @@ const AuthPage = () => {
     setShowSignUpForm(false);
   };
 
-  const showLogInModal = (e) => {
+  const showLogInModal = () => {
     setShowLogInForm(true);
   };
 
@@ -33,11 +34,11 @@ const AuthPage = () => {
         signUpClicker={showSignUpModal}
         logInClicker={showLogInModal}
       />
-      <Modal show={showSignUpForm} handleClose={hideSignUpModal}>
-        <SignUpForm />
+      <Modal show={showSignUpForm}>
+        <SignUpForm cancelHandler={hideSignUpModal} />
       </Modal>
-      <Modal show={showLogInForm} handleClose={hideLogInModal}>
-        <p>Login</p>
+      <Modal show={showLogInForm}>
+        <LogInForm cancelHandler={hideLogInModal} />
       </Modal>
     </main>
   );

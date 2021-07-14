@@ -1,0 +1,5 @@
+@import "./../../../../../mixins.scss";
+
+.textInputField {
+  @include formInputField;
+}

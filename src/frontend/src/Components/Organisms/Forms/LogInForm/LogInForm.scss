@@ -1,0 +1,10 @@
+@import "../../../../mixins.scss";
+
+.logInForm {
+  @include modalFormLayout;
+}
+
+.formActionButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
