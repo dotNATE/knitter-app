@@ -1,6 +1,5 @@
 @import "./../../../../mixins.scss";
-
-$primaryColor: #52ce10;
+@import "./../../../../variables.scss";
 
 .buttonPrimary {
   @include buttonBase;
