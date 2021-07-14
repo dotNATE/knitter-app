@@ -1,12 +1,14 @@
 import React from "react";
-import ButtonPrimary from "../Components/Atoms/ButtonPrimary";
-import ButtonSecondary from "./../Components/Atoms/ButtonSecondary/index";
+import Header1 from "../Components/Atoms/Headers/Header1";
+import Header2 from "./../Components/Atoms/Headers/Header2";
+import AuthButtons from "../Components/Molecules/AuthButtons";
 
 const AuthPage = () => {
   return (
     <div>
-      <ButtonPrimary content="Sign Up" />
-      <ButtonSecondary content="Log In" />
+      <Header1 content="Sign Up Page" />
+      <Header2 content="Join Knitter today!" />
+      <AuthButtons />
     </div>
   );
 };

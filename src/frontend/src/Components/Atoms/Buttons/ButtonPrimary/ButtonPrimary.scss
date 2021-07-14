@@ -1,0 +1,18 @@
+@import "./../../../../mixins.scss";
+
+$primaryColor: #52ce10;
+
+.buttonPrimary {
+  @include buttonBase;
+
+  border: none;
+  background-color: $primaryColor;
+  color: white;
+
+  &:hover {
+    opacity: 1;
+  }
+  &:active {
+    background-color: lighten($primaryColor, 10%);
+  }
+}
