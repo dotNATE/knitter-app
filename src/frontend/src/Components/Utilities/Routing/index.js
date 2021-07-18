@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import AuthPage from "../../../Pages/Auth";
+import AuthPage from "../../../Pages/Auth/Auth";
 import NavBar from "../NavBar";
 import ButtonPrimary from "../../Atoms/Buttons/ButtonPrimary/index";
 import { AuthProvider } from "./../../../Context/auth-context";
