@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 
 import Form from "../../../Atoms/FormElements/Form";
 import EmailInputMolecule from "../../../Molecules/FormElements/EmailInputMolecule";
@@ -12,8 +12,11 @@ import signUp from "../../../../APIFunctions/signUp";
 import logIn from "./../../../../APIFunctions/logIn";
 
 import "./SignUpForm.scss";
+import AuthContext from "../../../../Context/auth-context";
 
 const SignUpForm = ({ cancelHandler }) => {
+  const authContext = useContext(AuthContext);
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -46,7 +49,14 @@ const SignUpForm = ({ cancelHandler }) => {
 
     const logInData = await logIn(formValues);
 
-    console.log(logInData);
+    if (logInData.errors) {
+      logInData.errors.forEach((error) => {
+        console.log(error.message);
+      });
+      return;
+    }
+
+    authContext.logIn(logInData.data.login.token, logInData.data.login.userId);
   };
 
   return (
