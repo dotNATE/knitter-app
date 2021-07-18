@@ -1,95 +1,52 @@
 import React, { useState } from "react";
+
 import Form from "../../../Atoms/FormElements/Form";
 import EmailInputMolecule from "../../../Molecules/FormElements/EmailInputMolecule";
 import PasswordInputMolecule from "./../../../Molecules/FormElements/PasswordInputMolecule";
-import "./SignUpForm.scss";
 import FormButtonCancel from "../../../Atoms/FormElements/Buttons/FormButtonCancel";
 import FormButtonPrimary from "./../../../Atoms/FormElements/Buttons/FormButtonPrimary/index";
 import Header2 from "../../../Atoms/Headers/Header2";
 import TextInputMolecule from "./../../../Molecules/FormElements/TextInputMolecule";
 
+import signUp from "../../../../APIFunctions/signUp";
+import logIn from "./../../../../APIFunctions/logIn";
+
+import "./SignUpForm.scss";
+
 const SignUpForm = ({ cancelHandler }) => {
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    const fName = e.target[0].value;
-    const lName = e.target[1].value;
-    const email = e.target[2].value;
-    const password = e.target[3].value;
-    const passwordConf = e.target[4].value;
 
-    if (password !== passwordConf) {
-      setErrorMessage("password mismatch");
-      console.log(errorMessage);
+    const formValues = {
+      fName: e.target[0].value,
+      lName: e.target[1].value,
+      email: e.target[2].value,
+      password: e.target[3].value,
+      passwordConf: e.target[4].value,
+    };
+
+    if (formValues.email.length === 0 || formValues.password.length === 0) {
+      console.log("Invalid email or password");
       return;
     }
 
-    const signUpRequestBody = {
-      query: `
-        mutation(
-          $fName: String!
-          $lName: String!
-          $email: String!
-          $password: String!
-        ) {
-      createNewUser(
-        fName: $fName,
-        lName: $lName,
-        email: $email,
-        password: $password
-      ) {
-        _id
-        email
-      }
+    if (formValues.password !== formValues.passwordConf) {
+      console.log("Password does not match");
+      return;
     }
-    `,
-      variables: { fName, lName, email, password },
-    };
 
-    const logInRequestBody = {
-      query: `
-      mutation($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-          userId
-          token
-        }
-      }      
-      `,
-      variables: { email, password },
-    };
+    const signUpData = await signUp(formValues);
 
-    fetch("http://localhost:4200/graphql", {
-      method: "POST",
-      body: JSON.stringify(signUpRequestBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error("Failed");
-        }
-        return res.json();
-      })
-      .then((resData) => {
-        if (resData.errors) {
-          console.log("Already a user with that email");
-        }
-        fetch("http://localhost:4200/graphql", {
-          method: "POST",
-          body: JSON.stringify(logInRequestBody),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((logInData) => {
-            return logInData.json();
-          })
-          .then((logInData) => {
-            console.log(logInData);
-          });
+    if (signUpData.errors) {
+      signUpData.errors.forEach((error) => {
+        console.log(error.message);
       });
+      return;
+    }
+
+    const logInData = await logIn(formValues);
+
+    console.log(logInData);
   };
 
   return (

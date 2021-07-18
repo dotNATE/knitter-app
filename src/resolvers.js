@@ -99,7 +99,6 @@ export const resolvers = {
         });
     },
     login: async (_, { email, password }) => {
-      console.log({ email, password });
       const user = await User.findOne({ email: email });
       if (!user) {
         throw new Error("No user with that email");
