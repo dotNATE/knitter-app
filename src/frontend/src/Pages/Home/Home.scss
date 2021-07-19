@@ -10,6 +10,10 @@
   display: grid;
   border-right: 1px solid $homePageBorderColor;
   & > .header1 {
+    position: sticky;
+    border-bottom: 1px solid $homePageBorderColor;
+  }
+  & > form {
     border-bottom: 1px solid $homePageBorderColor;
   }
 }

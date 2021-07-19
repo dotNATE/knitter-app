@@ -60,7 +60,7 @@ const SignUpForm = ({ cancelHandler }) => {
   };
 
   return (
-    <Form className="signUpForm" submitHandler={submitHandler}>
+    <Form className="signUpForm" onSubmit={submitHandler}>
       <Header2Centered content="Sign Up" />
       <TextInputMolecule
         id="fName"

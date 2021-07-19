@@ -17,11 +17,13 @@ const Routing = () => {
 
   const logIn = (token, userId) => {
     setToken(token);
+    localStorage.setItem("token", `Bearer ${token}`);
     setUserId(userId);
   };
 
   const logOut = () => {
     setToken(null);
+    localStorage.removeItem("token");
     setUserId(null);
   };
 

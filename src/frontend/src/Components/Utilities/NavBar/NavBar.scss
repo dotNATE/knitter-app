@@ -23,6 +23,8 @@ nav > ul > li {
   border-radius: 25px;
   padding-left: 1rem;
   cursor: pointer;
+  transition-timing-function: ease-out;
+  transition-duration: 200ms;
   &:hover {
     background-color: $hoverEffectPrimaryColor;
     & a {

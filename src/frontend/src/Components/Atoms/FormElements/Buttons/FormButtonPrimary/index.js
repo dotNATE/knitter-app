@@ -1,10 +1,10 @@
 import React from "react";
 import "./FormButtonPrimary.scss";
 
-const FormButtonPrimary = ({ handleClick }) => {
+const FormButtonPrimary = ({ handleClick, content = "Submit" }) => {
   return (
     <button className="formButtonPrimary" type="submit" onClick={handleClick}>
-      Submit
+      {content}
     </button>
   );
 };

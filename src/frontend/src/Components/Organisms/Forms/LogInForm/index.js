@@ -40,7 +40,7 @@ const LogInForm = ({ cancelHandler }) => {
   };
 
   return (
-    <Form className="logInForm" submitHandler={submitHandler}>
+    <Form className="logInForm" onSubmit={submitHandler}>
       <Header2Centered content="Log In" />
       <EmailInputMolecule
         id="emailLogin"
