@@ -8,8 +8,6 @@ const CreateNewStitchForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log(typeof e.target[0].value);
-
     const formValues = {
       content: e.target[0].value,
     };

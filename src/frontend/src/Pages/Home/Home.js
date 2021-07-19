@@ -4,6 +4,7 @@ import "./Home.scss";
 import NavBar from "./../../Components/Utilities/NavBar";
 import Header1 from "../../Components/Atoms/Headers/Header1";
 import CreateNewStitchForm from "../../Components/Organisms/Forms/CreateNewStitchForm";
+import Stitch from "../../Components/Molecules/FormElements/Stitch";
 
 const HomePage = () => {
   return (
@@ -12,6 +13,13 @@ const HomePage = () => {
       <section className="mainWindow">
         <Header1 content="Home" />
         <CreateNewStitchForm />
+        <div>
+          <Stitch
+            fName="Nate"
+            lName="Dogg"
+            content="This stitches like crazy!"
+          />
+        </div>
       </section>
       <section className="newsWindow"></section>
     </main>

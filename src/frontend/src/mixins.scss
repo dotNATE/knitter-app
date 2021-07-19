@@ -18,9 +18,9 @@
 }
 
 @mixin formInput {
-  border: 1px solid black;
   height: 2.5rem;
   padding: 0 1rem;
+  background-color: white;
   border-radius: 25px;
   display: grid;
   grid-template-columns: 10rem 4fr;
