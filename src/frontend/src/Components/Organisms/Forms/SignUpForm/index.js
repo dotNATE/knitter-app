@@ -5,7 +5,7 @@ import EmailInputMolecule from "../../../Molecules/FormElements/EmailInputMolecu
 import PasswordInputMolecule from "./../../../Molecules/FormElements/PasswordInputMolecule";
 import FormButtonCancel from "../../../Atoms/FormElements/Buttons/FormButtonCancel";
 import FormButtonPrimary from "./../../../Atoms/FormElements/Buttons/FormButtonPrimary/index";
-import Header2 from "../../../Atoms/Headers/Header2";
+import Header2Centered from "../../../Atoms/Headers/Header2Centered";
 import TextInputMolecule from "./../../../Molecules/FormElements/TextInputMolecule";
 
 import signUp from "../../../../APIFunctions/signUp";
@@ -61,7 +61,7 @@ const SignUpForm = ({ cancelHandler }) => {
 
   return (
     <Form className="signUpForm" submitHandler={submitHandler}>
-      <Header2 content="Sign Up" />
+      <Header2Centered content="Sign Up" />
       <TextInputMolecule
         id="fName"
         label="First Name: "

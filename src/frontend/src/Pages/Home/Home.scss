@@ -1,10 +1,17 @@
+@import "../../variables.scss";
+
 .homePage {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: $navBarWidth 1fr 10rem;
 }
 
 .mainWindow {
   grid-column-start: 2;
+  display: grid;
+  border-right: 1px solid $homePageBorderColor;
+  & > .header1 {
+    border-bottom: 1px solid $homePageBorderColor;
+  }
 }
 
 .newsWindow {

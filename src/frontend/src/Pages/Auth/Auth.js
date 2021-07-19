@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header1 from "../../Components/Atoms/Headers/Header1";
-import Header2 from "../../Components/Atoms/Headers/Header2";
+import Header1Centered from "../../Components/Atoms/Headers/Header1Centered";
+import Header2Centered from "../../Components/Atoms/Headers/Header2Centered";
 import AuthButtons from "../../Components/Molecules/AuthButtons";
 import SignUpForm from "../../Components/Organisms/Forms/SignUpForm";
 import Modal from "../../Components/Utilities/Modal";
@@ -30,8 +30,8 @@ const AuthPage = () => {
   return (
     <main className="authPage">
       <section className="authWindow">
-        <Header1 content="Sign Up Page" />
-        <Header2 content="Join Knitter today!" />
+        <Header1Centered content="Sign Up Page" />
+        <Header2Centered content="Join Knitter today!" />
         <AuthButtons
           signUpClicker={showSignUpModal}
           logInClicker={showLogInModal}

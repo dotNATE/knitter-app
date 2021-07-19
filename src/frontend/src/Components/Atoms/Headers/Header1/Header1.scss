@@ -1,4 +1,8 @@
-h1 {
-  width: fit-content;
-  margin: 1rem auto;
+$height: 3.5rem;
+
+.header1 {
+  padding-left: 1rem;
+  margin: 0;
+  height: $height;
+  line-height: $height;
 }

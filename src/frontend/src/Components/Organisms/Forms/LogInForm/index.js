@@ -5,7 +5,7 @@ import EmailInputMolecule from "../../../Molecules/FormElements/EmailInputMolecu
 import PasswordInputMolecule from "./../../../Molecules/FormElements/PasswordInputMolecule";
 import FormButtonCancel from "../../../Atoms/FormElements/Buttons/FormButtonCancel";
 import FormButtonPrimary from "./../../../Atoms/FormElements/Buttons/FormButtonPrimary/index";
-import Header2 from "../../../Atoms/Headers/Header2";
+import Header2Centered from "../../../Atoms/Headers/Header2Centered";
 
 import "./LogInForm.scss";
 import logIn from "../../../../APIFunctions/logIn";
@@ -41,7 +41,7 @@ const LogInForm = ({ cancelHandler }) => {
 
   return (
     <Form className="logInForm" submitHandler={submitHandler}>
-      <Header2 content="Log In" />
+      <Header2Centered content="Log In" />
       <EmailInputMolecule
         id="emailLogin"
         label="Email: "
