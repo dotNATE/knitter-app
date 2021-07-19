@@ -1,0 +1,12 @@
+.homePage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mainWindow {
+  grid-column-start: 2;
+}
+
+.newsWindow {
+  grid-column-start: 3;
+}

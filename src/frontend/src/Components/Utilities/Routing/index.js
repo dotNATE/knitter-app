@@ -5,10 +5,11 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import AuthPage from "../../../Pages/Auth/Auth";
-import NavBar from "../NavBar";
-import ButtonPrimary from "../../Atoms/Buttons/ButtonPrimary/index";
+
 import { AuthProvider } from "./../../../Context/auth-context";
+
+import AuthPage from "../../../Pages/Auth/Auth";
+import HomePage from "./../../../Pages/Home/Home";
 
 const Routing = () => {
   const [token, setToken] = useState(null);
@@ -30,15 +31,11 @@ const Routing = () => {
         value={{ token: token, userId: userId, logIn: logIn, logOut: logOut }}
       >
         <Switch>
+          {!token && <Redirect from="/" to="/auth" exact />}
+          {token && <Redirect from="/auth" to="/" exact />}
+
+          {token && <Route exact path="/" component={HomePage} />}
           {!token && <Route exact path="/auth" component={AuthPage} />}
-
-          <div>
-            <NavBar />
-            {!token && <Redirect from="/" to="/auth" exact />}
-            {token && <Redirect from="/auth" to="/" exact />}
-
-            <Route exact path="/" component={ButtonPrimary} />
-          </div>
         </Switch>
       </AuthProvider>
     </Router>

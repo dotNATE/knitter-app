@@ -1,0 +1,40 @@
+@import "../../../variables.scss";
+
+nav {
+  position: fixed;
+  height: 100vh;
+  border-right: 1px solid gray;
+  grid-column-start: 1;
+  max-width: 22rem;
+  width: 30%;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+}
+
+nav ul li {
+  width: 12rem;
+  height: 3rem;
+  list-style: none;
+  margin: 0.5rem;
+  line-height: 3rem;
+  border-radius: 25px;
+  padding-left: 1rem;
+  cursor: pointer;
+  &:hover {
+    background-color: $hoverEffectPrimaryColor;
+    & a {
+      color: darken($primaryColor, 10);
+    }
+  }
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: black;
+  letter-spacing: 0.2rem;
+}

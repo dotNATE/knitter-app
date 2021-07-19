@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 
 import AuthContext from "../../../Context/auth-context";
 
+import "./NavBar.scss";
+
 const NavBar = () => {
   const context = useContext(AuthContext);
   return (
@@ -10,6 +12,12 @@ const NavBar = () => {
       <ul>
         <li>
           <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/test">Test</NavLink>
+        </li>
+        <li>
+          <NavLink to="/nope">Nope</NavLink>
         </li>
         {!context.token && (
           <li>
