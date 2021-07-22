@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./Stitch.scss";
-import Header4 from "./../../../Atoms/Headers/Header4/index";
+import Header4 from "../../Atoms/Headers/Header4";
 
 const Stitch = ({ fName, lName, content }) => {
   return (

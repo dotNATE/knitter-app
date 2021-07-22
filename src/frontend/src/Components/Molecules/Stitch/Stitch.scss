@@ -1,10 +1,9 @@
 .stitch {
   border: 2px solid green;
   display: grid;
-  grid-template-areas:
-    ". userInfo userInfo userInfo userInfo"
-    ". content content content content"
-    ". content content content content";
+  grid-template:
+    ". userInfo userInfo userInfo userInfo" 1fr
+    ". content content content content" 2fr;
   font-size: 0.9rem;
   padding: 0.3rem;
   & > .header4 {

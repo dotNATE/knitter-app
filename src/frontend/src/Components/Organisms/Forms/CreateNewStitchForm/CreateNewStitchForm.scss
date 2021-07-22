@@ -1,0 +1,14 @@
+.createNewStitchForm {
+  display: grid;
+  grid-template:
+    "input ." 1fr
+    ". button" 1fr / 5fr 1fr;
+  & > .textInput {
+    grid-area: input;
+  }
+  & > {
+    .formButtonPrimary {
+      grid-area: button;
+    }
+  }
+}

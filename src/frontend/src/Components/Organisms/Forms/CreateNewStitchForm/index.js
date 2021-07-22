@@ -4,6 +4,8 @@ import TextInputMolecule from "./../../../Molecules/FormElements/TextInputMolecu
 import Form from "./../../../Atoms/FormElements/Form/index";
 import FormButtonPrimary from "./../../../Atoms/FormElements/Buttons/FormButtonPrimary/index";
 
+import "./CreateNewStitchForm.scss";
+
 const CreateNewStitchForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -30,7 +32,7 @@ const CreateNewStitchForm = () => {
   };
 
   return (
-    <Form onSubmit={submitHandler}>
+    <Form onSubmit={submitHandler} className="createNewStitchForm">
       <TextInputMolecule
         id="newStitch"
         label="Make a stitch:"

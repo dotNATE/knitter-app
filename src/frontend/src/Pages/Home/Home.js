@@ -4,7 +4,7 @@ import "./Home.scss";
 import NavBar from "./../../Components/Utilities/NavBar";
 import Header1 from "../../Components/Atoms/Headers/Header1";
 import CreateNewStitchForm from "../../Components/Organisms/Forms/CreateNewStitchForm";
-import Stitch from "../../Components/Molecules/FormElements/Stitch";
+import Stitch from "../../Components/Molecules/Stitch";
 
 const HomePage = () => {
   return (
